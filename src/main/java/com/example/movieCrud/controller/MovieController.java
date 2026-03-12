@@ -33,7 +33,8 @@ public class MovieController {
     }
 
     @GetMapping("/add")
-    public String loadAdd() {
+    public String loadAdd(ModelMap map) {
+        map.put("movie", new Movie());
         return "add";
     }
 
@@ -44,12 +45,12 @@ public class MovieController {
         return "redirect:/movie";
     }    
 
-   @GetMapping("/")
-   public String delete(@PathVariable Long id, RedirectAttributes attributes) {
-        repository.deleteById(id);
-       attributes.addFlashAttribute("message", "Movie Record Deleted Successfully!");
-       return "redirect:/movie";
-   }
+//   @GetMapping("/")
+//   public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+//        repository.deleteById(id);
+//       attributes.addFlashAttribute("message", "Movie Record Deleted Successfully!");
+//       return "redirect:/movie";
+//   }
    @PostMapping("/delete/{id}")
    public String deleteMovie(@PathVariable Long id) {
 	   repository.deleteById(id);
@@ -69,12 +70,15 @@ public class MovieController {
     }
 
 
-   @PostMapping("/update/{id}")
-    public String update(@ModelAttribute Movie movie, RedirectAttributes attributes) {
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable("id") Long id, @ModelAttribute Movie movie, RedirectAttributes attributes) {
+        // No setId() needed—form binds it
         repository.save(movie);
         attributes.addFlashAttribute("message", "Movie Record Updated Successfully!");
         return "redirect:/movie";
     }
+
+
 }
 
 //frontend to back  value one one request param, all at one time @model attribute

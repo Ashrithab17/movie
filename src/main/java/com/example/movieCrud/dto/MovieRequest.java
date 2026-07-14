@@ -1,24 +1,17 @@
-package com.example.movieCrud.entity;
+package com.example.movieCrud.dto;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Entity
-@Data
-@NoArgsConstructor
-public class Movie {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MovieRequest {
+   
     private Long id;
+    @NotBlank
     private String name;
+   @NotBlank
 	private String actor;
+    @NotNull
 	private Integer rating;
+    @NotBlank
 	private String imageLink;  
 
 public Long getId() {
@@ -52,3 +45,4 @@ public void setImageLink(String imageLink) {
     this.imageLink = imageLink;
 }
 }
+
